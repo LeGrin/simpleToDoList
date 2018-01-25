@@ -1,5 +1,5 @@
-import { HomeStore } from 'app/store/home/home-store';
+import { ToDoListStore } from './todo-list/to-do-list-store';
 
 export class Store {
-  readonly homeStore = new HomeStore();
+  readonly toDoListStore = new ToDoListStore();
 }

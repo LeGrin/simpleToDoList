@@ -1,0 +1,24 @@
+<div class="todo-item" *ngIf="editing">
+  <input 
+    class="input-item" 
+    type="text" 
+    placeholder="New ToDo Item"
+    [(ngModel)]="title"
+    (keyup.enter)="stopEditing()" 
+    (keyup.escape)="cancelEditing()"/>
+</div>
+<div class="todo-item" 
+    [ngClass]="itemClass" 
+    *ngIf="!editing">
+    <input 
+      type="checkbox"
+      [ngModel]="item.isChecked"
+      (click)="toggleTask()"/>
+    <span class="todo-title">{{item.title}}</span>
+    <i class="fa fa-edit icon-edit"
+      (click)="activateEditing()"
+    ></i>
+    <i class="fa fa-remove icon-remove"
+      (click)="deleteTask()"
+    ></i>
+</div>

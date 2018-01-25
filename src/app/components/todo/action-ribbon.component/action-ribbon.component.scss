@@ -1,0 +1,92 @@
+@import "../../../../sass/variables";
+
+.action-ribbon {
+    display: flex;    
+    position: absolute;
+    top: 10%;
+    right: 35%;
+    width: 30%;
+    border: 2px solid $a-color-black-n60;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.action-item {
+    display: block;
+    width: 15%;
+    padding: 0 5px;
+    border-right: 1px solid $a-color-black-n100;
+    background-color: $a-color-black-n30;    
+
+    &:last-child {
+        border: none;
+    }
+}
+
+.on-hover {
+    &:hover {   
+        background-color: $a-color-black-n10;                    
+        cursor: pointer;
+    }
+}
+
+.hide-item {
+    display: block;
+    margin: 3px;
+}
+
+.inspire-button {
+    display: block;
+    margin: 3px 9px;
+    font-size: 14px;
+}
+
+.sort-block {
+    width: 30%;
+    background-color: $a-color-black-n30;
+
+}
+
+.sort-radio {
+
+}
+
+.sort-title {
+
+}
+
+.search-box {
+    display: flex;
+    width: 30%;
+    background-color: $a-color-white-n100;        
+}
+
+.search-icon {
+    margin: 3px;
+    color: $a-color-black-n30;
+}
+
+.close-search-icon {
+    display: none;    
+    position: absolute;    
+    top: 1px;    
+    right: 3px;
+    margin: 3px;    
+    color: $a-color-black-n30;
+    
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.close-search-icon_visible {
+    display: block;
+}
+
+.search-input {
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}

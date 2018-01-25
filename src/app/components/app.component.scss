@@ -3,3 +3,10 @@
 .a-component {
     color: $a-color-red-n1;
 }
+
+.a-header {
+    width: 100%;
+    border-bottom: 3px solid $a-color-black-n60;
+    border-radius: 15px;
+    text-align: center;
+}

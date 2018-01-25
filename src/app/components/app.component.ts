@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'simple ToDo List';
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

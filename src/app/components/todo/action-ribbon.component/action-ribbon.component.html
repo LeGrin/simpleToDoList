@@ -1,0 +1,27 @@
+<div class="action-ribbon">
+  <div class="action-item on-hover">
+    <span class="hide-item" (click)="toggleClick()">
+      <i class="fa" [ngClass]="hideIconClass"></i> Completed</span>
+  </div>
+  <div class="action-item on-hover">
+    <span class="inspire-button" (click)="inspire()">Inspiration</span>
+  </div>
+  <div class="action-item sort-block">
+    <span>Sort:</span>
+    <input type="radio" class="sort-radio" />
+    <span class="sort-title">Name</span>
+    <input type="radio" class="sort-radio" />
+    <span class="sort-title">Date</span>
+  </div>
+  <div class="action-item search-box">
+    <i class="fa fa-search search-icon"></i>
+    <input type="text" 
+          class="search-input" 
+          placeholder="Search.." 
+          (keyup)="searchChanged($event)"
+          (focus)="toggleSearchFocus($event)"
+          [(ngModel)]="searchQuery"
+    />
+    <i class="fa fa-close close-search-icon" [ngClass]="closeIconClass" (click)="toggleSearchFocus($event)"></i>    
+  </div>
+</div>

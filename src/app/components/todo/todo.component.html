@@ -1,0 +1,19 @@
+<action-ribbon-component
+  [isCompletedVisible]="isCompletedVisible$.getValue()"
+  (onInspired)="inspire($event)"
+  (onHideCompleted)="hideCompleted($event)"
+  (onSearchChanged)="searchChanged($event)"
+  (onSearchFocusChange)="searchFocusToggled($event)"
+></action-ribbon-component>
+<div class="todo-box">
+  <todo-item-component 
+    (onEdited)="update($event)"
+  ></todo-item-component>
+  <todo-item-component 
+    *ngFor="let item of items$ | async" 
+    [item]="item" 
+    (onEdited)="update($event)" 
+    (onToggled)="toggle($event)"
+    (onDeleted)="delete($event)"
+  ></todo-item-component>      
+</div>

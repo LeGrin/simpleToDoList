@@ -1,0 +1,60 @@
+@import "../../../../sass/variables";
+
+.todo-item {
+    display: flex;
+    width: auto;
+    margin: 5px;  
+    padding: 5px;      
+    border: 1px solid $a-color-black-n60;
+}
+
+.todo-title {
+    display: block;
+    height: 20px;
+}
+
+.input-item {
+    width: 96%;
+    margin: 10px;
+    border: none;
+    border-bottom: 2px solid $a-color-black-n100;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.icon-edit {
+    position: absolute;
+    left: 92%;
+    margin-top: 3px;
+    color: $a-color-black-n60;    
+
+    &:hover {
+        color: $a-color-black-n100;        
+    }
+}
+
+.icon-remove {
+    position: absolute;
+    left: 95%; 
+    margin-top: 2px;    
+    color: $a-color-black-n60;    
+
+    &:hover {
+        color: $a-color-black-n100;        
+    }
+}
+
+.todo-item_completed {
+    background-color: $a-color-black-n10;
+    text-decoration: line-through;
+
+    &.icon-edit {
+        display: none !important;
+    }
+
+    &.icon-remove {
+        display: none !important;        
+    }
+}
