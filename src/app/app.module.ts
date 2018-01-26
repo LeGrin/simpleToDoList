@@ -25,7 +25,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ActionsModule,
     StoreModule,
     ServicesModule,
-    RepositoriesModule
+    RepositoriesModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

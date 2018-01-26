@@ -7,11 +7,15 @@
     <span class="inspire-button" (click)="inspire()">Inspiration</span>
   </div>
   <div class="action-item sort-block">
-    <span>Sort:</span>
-    <input type="radio" class="sort-radio" />
-    <span class="sort-title">Name</span>
-    <input type="radio" class="sort-radio" />
-    <span class="sort-title">Date</span>
+    <span class="sort-title">Sort:</span>
+    <div class="sort-item" (click)="changeSorting('title')">
+      <input type="checkbox" [(ngModel)]="nameSelected" class="sort-radio" />
+      <span class="sort-title">{{nameSortTitle}}</span>
+    </div>
+    <div class="sort-item" (click)="changeSorting('createdDate')">
+      <input type="checkbox" [(ngModel)]="dateSelected" class="sort-radio" />
+      <span class="sort-title">{{dateSortTitle}}</span>
+    </div>
   </div>
   <div class="action-item search-box">
     <i class="fa fa-search search-icon"></i>

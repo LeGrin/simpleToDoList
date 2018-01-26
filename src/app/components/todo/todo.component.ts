@@ -3,11 +3,12 @@ import { TodoDeletedAction } from 'app/actions/todo/todo-deleted.action';
 import { TodoRandomFillAction } from 'app/actions/todo/todo-random-fill.action';
 import { TodoSearchInputChangedAction } from 'app/actions/todo/todo-search-input-changed.action';
 import { TodoSearchToggleFocusAction } from 'app/actions/todo/todo-search-toggle-focus.action';
+import { TodoSortingChangedAction } from 'app/actions/todo/todo-sorting-changed.action';
 import { TodoToggleCompletedVisibilityAction } from 'app/actions/todo/todo-toggle-completed-visibility.action';
 import { TodoToggleAction } from 'app/actions/todo/todo-toggle.action';
 import { TodoUpdatedAction } from 'app/actions/todo/todo-updated.action';
 import { Store } from 'app/store/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { TodoItem } from './to-do-item';
 
 @Component({
@@ -19,6 +20,7 @@ export class TodoComponent {
   items$: Observable<TodoItem[]>;
   length$: Observable<number>;
   isCompletedVisible$: Observable<boolean>;
+  sortQuery$: Observable<string>;
 
   constructor(
     store: Store,
@@ -28,12 +30,14 @@ export class TodoComponent {
     private todoRandomFillAction: TodoRandomFillAction,
     private todoToggleCompletedVisibilityAction: TodoToggleCompletedVisibilityAction,
     private todoSearchInputChangedAction: TodoSearchInputChangedAction,
-    private todoSearchToggleFocusAction: TodoSearchToggleFocusAction
+    private todoSearchToggleFocusAction: TodoSearchToggleFocusAction,
+    private todoSortingChangedAction: TodoSortingChangedAction
   ) {
     const todo = store.toDoListStore;
 
     this.items$ = todo.visibleItems$;
     this.isCompletedVisible$ = todo.isCompletedVisible$;
+    this.sortQuery$ = todo.sortQuery$;
   }
 
   update(item: TodoItem) {
@@ -62,5 +66,9 @@ export class TodoComponent {
 
   searchFocusToggled() {
     this.todoSearchToggleFocusAction.execute();
+  }
+
+  async sortingChanged(query: string) {
+    await this.todoSortingChangedAction.execute(query);
   }
 }

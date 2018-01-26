@@ -2,11 +2,14 @@
 
 .action-ribbon {
     display: flex;    
-    position: absolute;
-    top: 10%;
-    right: 35%;
-    width: 30%;
-    border: 2px solid $a-color-black-n60;
+    position: fixed;
+    top: 100px;
+    right: 0;
+    left: 0;
+    width: 575px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px solid  $a-color-black-n60;
     border-radius: 4px;
     font-size: 12px;
 }
@@ -42,17 +45,21 @@
 }
 
 .sort-block {
+    display: flex;
     width: 30%;
-    background-color: $a-color-black-n30;
+}
 
+.sort-item {
+    display: flex;
 }
 
 .sort-radio {
-
+    display: block;
 }
 
 .sort-title {
-
+    display: block;
+    margin: 3px;
 }
 
 .search-box {
@@ -73,7 +80,7 @@
     right: 3px;
     margin: 3px;    
     color: $a-color-black-n30;
-    
+
     &:hover {
         cursor: pointer;
     }

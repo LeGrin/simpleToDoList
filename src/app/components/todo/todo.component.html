@@ -1,9 +1,11 @@
 <action-ribbon-component
-  [isCompletedVisible]="isCompletedVisible$.getValue()"
+  [isCompletedVisible]="isCompletedVisible$ | async"
+  [sortQuery]="sortQuery$ | async"
   (onInspired)="inspire($event)"
   (onHideCompleted)="hideCompleted($event)"
   (onSearchChanged)="searchChanged($event)"
   (onSearchFocusChange)="searchFocusToggled($event)"
+  (onChangeSorting)='sortingChanged($event)'
 ></action-ribbon-component>
 <div class="todo-box">
   <todo-item-component 
