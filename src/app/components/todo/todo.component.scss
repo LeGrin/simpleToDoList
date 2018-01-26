@@ -1,5 +1,9 @@
 @import "../../../sass/variables";
 
+.todo-scroll {
+    overflow-y: scroll;
+}
+
 .todo-box {
     position: fixed;
     top: 150px;

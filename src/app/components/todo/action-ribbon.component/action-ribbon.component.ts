@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ActionRibbonComponent implements OnInit {
   @Input() isCompletedVisible: boolean;
-  @Input() sortQuery:  string;
+  @Input() sortQuery: string;
   @Output() onInspired = new EventEmitter();
   @Output() onHideCompleted = new EventEmitter();
   @Output() onSearchChanged = new EventEmitter<string>();
