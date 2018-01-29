@@ -1,7 +1,7 @@
 <div class="todo-scroll">
   <action-ribbon-component
-    [isCompletedVisible]="isCompletedVisible$ | async"
-    [sortQuery]="sortQuery$ | async"
+    [isCompletedVisible$]="isCompletedVisible$"
+    [sortQuery$]="sortQuery$"
     (onInspired)="inspire($event)"
     (onHideCompleted)="hideCompleted($event)"
     (onSearchChanged)="searchChanged($event)"

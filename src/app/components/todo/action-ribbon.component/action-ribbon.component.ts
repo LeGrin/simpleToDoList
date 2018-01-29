@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'action-ribbon-component',
@@ -6,8 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['action-ribbon.component.scss']
 })
 export class ActionRibbonComponent implements OnInit {
-  @Input() isCompletedVisible: boolean;
-  @Input() sortQuery: string;
+  @Input() isCompletedVisible$: Observable<boolean>;
+  @Input() sortQuery$: Observable<string>;
   @Output() onInspired = new EventEmitter();
   @Output() onHideCompleted = new EventEmitter();
   @Output() onSearchChanged = new EventEmitter<string>();
@@ -20,10 +21,26 @@ export class ActionRibbonComponent implements OnInit {
   dateSelected: boolean;
   nameSortTitle: string = 'Name ↓';
   dateSortTitle: string = 'Date ↓';
+  localSortQuery: string;
+  localIsCompletedVisible: boolean;
 
   ngOnInit(): void {
-    this.toggleVisibilityIcon();
+    this.sortQuery$.subscribe(value => {
+      this.updateSortQuery(value);
+    });
+    this.isCompletedVisible$.subscribe(value => {
+      this.updateVisibility(value);
+    });
+  }
+
+  updateSortQuery = (sortQuery: string) => {
+    this.localSortQuery = sortQuery;
     this.initializeSorting();
+  };
+
+  updateVisibility = (isVisible: boolean) => {
+    this.localIsCompletedVisible = isVisible;
+    this.toggleVisibilityIcon();    
   }
 
   inspire = () => {
@@ -31,7 +48,7 @@ export class ActionRibbonComponent implements OnInit {
   };
 
   toggleVisibilityIcon() {
-    this.hideIconClass = !this.isCompletedVisible ? 'fa-eye' : 'fa-eye-slash';
+    this.hideIconClass = !this.localIsCompletedVisible ? 'fa-eye' : 'fa-eye-slash';
   }
 
   toggleClick = () => {
@@ -43,18 +60,16 @@ export class ActionRibbonComponent implements OnInit {
     this.onSearchChanged.emit(this.searchQuery);
   };
 
-  changeSorting = async(property: string) => {
+  changeSorting = async (property: string) => {
     let newSortQuery: string = '';
-    if (this.sortQuery.indexOf(property) !== -1) {
+    if (this.localSortQuery.indexOf(property) !== -1) {
       newSortQuery = `${property}#${-Number.parseInt(
-        this.sortQuery.split('#')[1]
+        this.localSortQuery.split('#')[1]
       )}`;
     } else {
       newSortQuery = `${property}#1`;
     }
     await this.onChangeSorting.emit(newSortQuery);
-    this.sortQuery = newSortQuery;
-    this.initializeSorting();
   };
 
   toggleSearchFocus() {
@@ -65,16 +80,16 @@ export class ActionRibbonComponent implements OnInit {
   }
 
   initializeSorting() {
-    this.nameSelected = this.sortQuery.split('#')[0] === 'title';
-    this.dateSelected = this.sortQuery.split('#')[0] === 'createdDate';
+    this.nameSelected = this.localSortQuery.split('#')[0] === 'title';
+    this.dateSelected = this.localSortQuery.split('#')[0] === 'createdDate';
     if (this.nameSelected) {
       this.nameSortTitle = `Name ${
-        this.sortQuery.split('#')[1] === '-1' ? '↑' : '↓'
+        this.localSortQuery.split('#')[1] === '-1' ? '↑' : '↓'
       }`;
     }
     if (this.dateSelected) {
       this.dateSortTitle = `Date ${
-        this.sortQuery.split('#')[1] === '-1' ? '↑' : '↓'
+        this.localSortQuery.split('#')[1] === '-1' ? '↑' : '↓'
       }`;
     }
   }
