@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -6,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'action-ribbon.component.html',
   styleUrls: ['action-ribbon.component.scss']
 })
-export class ActionRibbonComponent implements OnInit {
+export class ActionRibbonComponent implements OnInit, OnDestroy {
   @Input() isCompletedVisible$: Observable<boolean>;
   @Input() sortQuery$: Observable<string>;
   @Output() onInspired = new EventEmitter();
@@ -14,6 +16,7 @@ export class ActionRibbonComponent implements OnInit {
   @Output() onSearchChanged = new EventEmitter<string>();
   @Output() onSearchFocusChange = new EventEmitter();
   @Output() onChangeSorting = new EventEmitter<string>();
+  subscriptionList: Subscription[] = [];
   hideIconClass: string = '';
   closeIconClass: string = '';
   searchQuery: string;
@@ -25,12 +28,22 @@ export class ActionRibbonComponent implements OnInit {
   localIsCompletedVisible: boolean;
 
   ngOnInit(): void {
-    this.sortQuery$.subscribe(value => {
-      this.updateSortQuery(value);
-    });
-    this.isCompletedVisible$.subscribe(value => {
-      this.updateVisibility(value);
-    });
+    this.subscriptionList.push(
+      this.sortQuery$.subscribe(value => {
+        this.updateSortQuery(value);
+      })
+    );
+    this.subscriptionList.push(
+      this.isCompletedVisible$.subscribe(value => {
+        this.updateVisibility(value);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    for (let subscription of this.subscriptionList) {
+      subscription.unsubscribe();
+    }
   }
 
   updateSortQuery = (sortQuery: string) => {
@@ -40,20 +53,21 @@ export class ActionRibbonComponent implements OnInit {
 
   updateVisibility = (isVisible: boolean) => {
     this.localIsCompletedVisible = isVisible;
-    this.toggleVisibilityIcon();    
-  }
+    this.toggleVisibilityIcon();
+  };
 
   inspire = () => {
     this.onInspired.emit();
   };
 
   toggleVisibilityIcon() {
-    this.hideIconClass = !this.localIsCompletedVisible ? 'fa-eye' : 'fa-eye-slash';
+    this.hideIconClass = !this.localIsCompletedVisible
+      ? 'fa-eye'
+      : 'fa-eye-slash';
   }
 
   toggleClick = () => {
     this.onHideCompleted.emit();
-    this.toggleVisibilityIcon();
   };
 
   searchChanged = () => {
